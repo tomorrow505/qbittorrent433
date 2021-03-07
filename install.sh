@@ -114,13 +114,13 @@ EOF
 
 systemctl enable qbittorrent.service # 设置开机自启动
 echo y|qbittorrent-nox --webui-port=2021
-echo -e '\004'
+echo -e '\003'
 
 ################################设置qbittorrent命令###########################
 qbit_command="/usr/bin/qbittorrent"
 touch $qbit_command
 cat>$qbit_command<<EOF
-/#!/bin/bash
+#!/bin/bash
 if [ \$1 == "start" ]
 then
   systemctl start qbittorrent.service #启动qBittorrent

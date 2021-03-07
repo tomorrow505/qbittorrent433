@@ -11,6 +11,8 @@ fi
 ###################################目录准备#############################
 echo -n "输入你的用户名："
 read name
+echo -n "输入你的qb密码："
+read pwd
 lib_dir="/home/${name}/libtorrent"
 qbit_dir="/home/${name}/qbittorrent"
 boost_dir="/home/${name}/boost"
@@ -111,6 +113,88 @@ ExecStop=/usr/bin/killall -w qbittorrent-nox
 [Install]
 WantedBy=multi-user.target
 EOF
+
+qbit_conf="/root/.config/qBittorrent/qbittorrent.conf"
+rm $qbit_conf && touch $qbit_conf
+cat<<EOF>$qbit_conf
+[Application]
+FileLogger\Enabled=true
+FileLogger\Age=6
+FileLogger\DeleteOld=true
+FileLogger\Backup=true
+FileLogger\AgeType=1
+FileLogger\Path=/home/${name}/.config/qBittorrent
+FileLogger\MaxSize=20
+[BitTorrent]
+Session\AnnounceToAllTiers=true
+Session\AsyncIOThreadsCount=4
+Session\CheckingMemUsageSize=16
+Session\ChokingAlgorithm=FixedSlots
+Session\CoalesceReadWrite=false
+Session\FilePoolSize=40
+Session\GuidedReadCache=true
+Session\MultiConnectionsPerIp=false
+Session\SeedChokingAlgorithm=FastestUpload
+Session\SendBufferLowWatermark=10
+Session\SendBufferWatermark=500
+Session\SendBufferWatermarkFactor=50
+Session\SocketBacklogSize=30
+Session\SuggestMode=false
+Session\uTPMixedMode=TCP
+[LegalNotice]
+Accepted=true
+[Preferences]
+Advanced\AnnounceToAllTrackers=false
+Advanced\RecheckOnCompletion=false
+Advanced\osCache=true
+Advanced\trackerPort=9000
+Bittorrent\AddTrackers=false
+Bittorrent\DHT=false
+Bittorrent\Encryption=1
+Bittorrent\LSD=false
+Bittorrent\MaxConnecs=-1
+Bittorrent\MaxConnecsPerTorrent=-1
+Bittorrent\MaxRatioAction=0
+Bittorrent\PeX=false
+Bittorrent\uTP=false
+Bittorrent\uTP_rate_limited=true
+Connection\GlobalDLLimitAlt=0
+Connection\GlobalUPLimitAlt=0
+#Connection\InetAddress=1.1.1.1
+#Connection\Interface=eth0
+#Connection\InterfaceAddress=0.0.0.0
+#Connection\InterfaceName=eth0
+Connection\ResolvePeerCountries=true
+Connection\PortRangeMin=2000
+Downloads\DiskWriteCacheSize=64
+Downloads\DiskWriteCacheTTL=60
+Downloads\SavePath=/home/$name/qbittorrent/download
+Downloads\SaveResumeDataInterval=3
+Downloads\ScanDirsV2=@Variant(\0\0\0\x1c\0\0\0\0)
+Downloads\StartInPause=false
+Downloads\TorrentExportDir=/home/$name/qbittorrent/torrent
+General\Locale=$qbt_language
+Queueing\QueueingEnabled=false
+#Disable CSRF Protection For PT Plugin Plus
+WebUI\AlternativeUIEnabled=false
+WebUI\CSRFProtection=false
+WebUI\HostHeaderValidation=true
+WebUI\LocalHostAuth=false
+WebUI\Port=2021
+WebUI\RootFolder=/opt/qBittorrent/WebUI/miniers.qb-web
+EOF
+if [[ -z $(command -v qbpass) ]]; then
+    wget --no-check-certificate -nv https://github.com/KozakaiAya/libqbpasswd/releases/download/v0.2/qb_password_gen_static -O /usr/local/bin/qbpass
+    chmod +x /usr/local/bin/qbpass
+fi
+qbPassOld=$(echo -n $iPass | md5sum | cut -f1 -d ' ')
+qbPassNew=$(/usr/local/bin/qbpass $iPass)
+cat << EOF >> $qbit_conf
+WebUI\Username=$name
+WebUI\Password_ha1=@ByteArray($qbPassOld)
+WebUI\Password_PBKDF2="@ByteArray($qbPassNew)"
+EOF
+
 
 systemctl enable qbittorrent.service # 设置开机自启动
 echo y|qbittorrent-nox --webui-port=2021

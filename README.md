@@ -11,4 +11,4 @@ After compiling, run:
 `qbittorrent-nox --webui-port=2021` and typing `Y` at the first time and exit by `ctrl+c`.
 
 Command:
-qbittorrent start|stop|restart to start|stop|restart qbittorrent.
+`qbittorrent start|stop|restart` to start|stop|restart qbittorrent.

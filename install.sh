@@ -38,6 +38,7 @@ ln -s /usr/local/bin/lsz sz
 
 
 #################################整体环境部署##############################
+
 cd "/home/$name"
 apt update
 apt -y install build-essential pkg-config automake libtool git libgeoip-dev python3 python3-dev
@@ -58,6 +59,7 @@ sh ./bootstrap.sh
 ./b2/install
 
 ####################################编译libtorrent############################
+
 cd $lib_dir
 apt -y install libssl-dev
 apt -y install openssl
@@ -85,10 +87,6 @@ fi
 if [ -f "$file2" ]; then
   mv "$file2" "${file21}-qt5"
 fi
-
-
-# mv /bin/lrelease /bin/lrelease-qt5
-# mv /usr/lib/qt5/bin/lrelease /usr/lib/qt5/bin/lrelease-qt5
 
 wget https://github.com/qbittorrent/qBittorrent/archive/release-4.3.3.tar.gz
 tar xf release-4.3.3.tar.gz
@@ -121,13 +119,13 @@ qbit_command="/usr/bin/qbittorrent"
 touch $qbit_command
 cat>$qbit_command<<EOF
 /#!/bin/bash
-if [ $1 == "start"]
+if [ \$1 == "start" ]
 then
   systemctl start qbittorrent.service #启动qBittorrent
-elif [ $1 == "stop"]
+elif [ \$1 == "stop" ]
 then
   systemctl stop qbittorrent.service #关闭qBittorrent
-elif [ $1 == "restart"]
+elif [ \$1 == "restart" ]
 then
   systemctl restart qbittorrent.service #重启qBittorrent
 fi

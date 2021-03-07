@@ -121,7 +121,7 @@ if [ -f "$qbit_conf1" ]; then
 else
   qbit_conf=$qbit_conf2
 fi
-rm $qbit_conf && touch $qbit_conf
+mv $qbit_conf "${qbit_conf}.old" && touch $qbit_conf
 cat<<EOF>$qbit_conf
 [Application]
 FileLogger\Enabled=true

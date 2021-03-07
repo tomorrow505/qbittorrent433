@@ -187,8 +187,8 @@ if [[ -z $(command -v qbpass) ]]; then
     wget --no-check-certificate -nv https://github.com/KozakaiAya/libqbpasswd/releases/download/v0.2/qb_password_gen_static -O /usr/local/bin/qbpass
     chmod +x /usr/local/bin/qbpass
 fi
-qbPassOld=$(echo -n $iPass | md5sum | cut -f1 -d ' ')
-qbPassNew=$(/usr/local/bin/qbpass $iPass)
+qbPassOld=$(echo -n $pwd | md5sum | cut -f1 -d ' ')
+qbPassNew=$(/usr/local/bin/qbpass $pwd)
 cat << EOF >> $qbit_conf
 WebUI\Username=$name
 WebUI\Password_ha1=@ByteArray($qbPassOld)

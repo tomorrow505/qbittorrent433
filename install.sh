@@ -24,6 +24,7 @@ mkdir $autoseed_dir
 
 cd $autoseed_dir && mkdir cache && chmod 777 cache
 cd $autoseed_dir && mkdir tmp && chmod 777 tmp
+cd $qbit_dir && mkdir torrent && mkdir download
 
 # 安装rzsz
 mkdir "/home/${name}/rzsz"

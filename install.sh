@@ -114,7 +114,13 @@ ExecStop=/usr/bin/killall -w qbittorrent-nox
 WantedBy=multi-user.target
 EOF
 
-qbit_conf="/root/.config/qBittorrent/qbittorrent.conf"
+qbit_conf1="/root/.config/qBittorrent/qBittorrent.conf"
+qbit_conf2="/root/.config/qBittorrent/qbittorrent.conf"
+if [ -f "$qbit_conf1" ]; then
+  qbit_conf=$qbit_conf1
+else
+  qbit_conf=$qbit_conf2
+fi
 rm $qbit_conf && touch $qbit_conf
 cat<<EOF>$qbit_conf
 [Application]
@@ -173,7 +179,7 @@ Downloads\SaveResumeDataInterval=3
 Downloads\ScanDirsV2=@Variant(\0\0\0\x1c\0\0\0\0)
 Downloads\StartInPause=false
 Downloads\TorrentExportDir=/home/$name/qbittorrent/torrent
-General\Locale=$qbt_language
+General\Locale=zh
 Queueing\QueueingEnabled=false
 #Disable CSRF Protection For PT Plugin Plus
 WebUI\AlternativeUIEnabled=false

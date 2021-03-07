@@ -8,7 +8,7 @@ wget https://raw.githubusercontent.com/tomorrow505/qbittorrent433/main/install.s
 Then input your username.
 
 After compiling, run:
-qbittorrent-nox --webui-port=2021 and typing yes at the first time and exit by ctrl+c.
+`qbittorrent-nox --webui-port=2021` and typing `Y` at the first time and exit by `ctrl+c`.
 
 Command:
 qbittorrent start|stop|restart to start|stop|restart qbittorrent.

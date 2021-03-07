@@ -133,3 +133,19 @@ then
 fi
 EOF
 cd /usr/bin && chmod +x qbittorrent
+
+##############################安装mediainfo和ffmpeg###############################
+apt -y install mediainfo
+apt -y install ffmpeg
+
+apt -y install python3-pip
+pip3 install bencode.py cn2an requests qbittorrent-api bs4 lxml pymediainfo pyimgbox
+
+# 创建up命令用于剧鸡的使用，主文件问main.py
+up_path="/usr/bin/up"
+touch $up_path
+cat>$up_path<<EOF
+#!/bin/bash
+python3 "${autoseed_dir}/main.py" -i "$1"
+EOF
+cd /usr/bin/ && chmod +x up

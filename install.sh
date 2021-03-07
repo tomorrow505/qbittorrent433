@@ -113,6 +113,8 @@ WantedBy=multi-user.target
 EOF
 
 systemctl enable qbittorrent.service # 设置开机自启动
+echo y|qbittorrent-nox --webui-port=2021
+echo -e '\004'
 
 ################################设置qbittorrent命令###########################
 qbit_command="/usr/bin/qbittorrent"

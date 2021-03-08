@@ -1,5 +1,7 @@
 #!/bin/bash
+
 ###################################环境准备#############################
+
 version="$(cat /proc/version)"
 ubuntu="Ubuntu"
 result=$(echo $version | grep "${ubuntu}")
@@ -219,7 +221,7 @@ fi
 EOF
 cd /usr/bin && chmod +x qbittorrent
 
-##############################安装mediainfo和ffmpeg###############################
+##############################配置剧鸡相关###############################
 
 apt -y install mediainfo
 apt -y install ffmpeg

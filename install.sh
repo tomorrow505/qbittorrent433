@@ -9,6 +9,7 @@ then
 fi
 
 ###################################目录准备#############################
+
 echo -n "输入你的用户名："
 read name
 echo -n "输入你的qb密码："
@@ -28,17 +29,6 @@ cd $autoseed_dir && mkdir cache && chmod 777 cache
 cd $autoseed_dir && mkdir tmp && chmod 777 tmp
 cd $qbit_dir && mkdir torrent && mkdir download
 
-# 安装rzsz
-mkdir "/home/${name}/rzsz"
-cd "/home/${name}/rzsz"
-wget http://www.ohse.de/uwe/releases/lrzsz-0.12.20.tar.gz
-tar zxvf lrzsz-0.12.20.tar.gz && cd lrzsz-0.12.20
-./configure && make && make install
-cd /usr/bin
-ln -s /usr/local/bin/lrz rz
-ln -s /usr/local/bin/lsz sz
-
-
 #################################整体环境部署##############################
 
 cd "/home/$name"
@@ -48,6 +38,7 @@ apt -y install libboost-dev libboost-system-dev libboost-chrono-dev libboost-ran
 apt -y install qtbase5-dev qttools5-dev-tools libqt5svg5-dev zlib1g-dev
 
 ####################################编译boost##############################
+
 cd $boost_dir
 apt-get -y install mpi-default-dev　　#安装mpi库
 apt-get -y install libicu-dev　　　　　#支持正则表达式的UNICODE字符集　
@@ -75,7 +66,8 @@ make -j$(nproc)
 make install
 ldconfig
 
-#########################安装qbittorrent########################
+####################################安装qbittorrent#############################
+
 cd $qbit_dir
 apt-get -y install qt5-default
 apt-get -y install zlib1g-dev
@@ -99,10 +91,12 @@ make -j$(nproc)
 make install
 
 systemctl enable qbittorrent.service # 设置开机自启动
-echo y|qbittorrent-nox --webui-port=2021
-echo -e '\003'
 
-# 写入配置文件
+echo y|qbittorrent-nox --webui-port=2021 # 开启qb
+echo $'\003' # 尝试ctrl+c退出
+
+#################################写入配置文件###################################
+
 qbit_service="/etc/systemd/system/qbittorrent.service"
 touch $qbit_service
 cat>$qbit_service<<EOF
@@ -118,8 +112,8 @@ ExecStop=/usr/bin/killall -w qbittorrent-nox
 WantedBy=multi-user.target
 EOF
 
-command=$(ls /root/.config/qBittorrent/)
-echo $command
+# command=$(ls /root/.config/qBittorrent/)
+# echo $command
 qbit_conf1="/root/.config/qBittorrent/qBittorrent.conf"
 qbit_conf2="/root/.config/qBittorrent/qbittorrent.conf"
 if [ -f "$qbit_conf1" ]; then
@@ -129,6 +123,9 @@ else
 fi
 mv $qbit_conf "${qbit_conf}.old" && touch $qbit_conf
 cat<<EOF>$qbit_conf
+[AutoRun]
+enabled=true
+program=/bin/bash /usr/bin/up \"%I\"
 [Application]
 FileLogger\Enabled=true
 FileLogger\Age=6
@@ -172,10 +169,6 @@ Bittorrent\uTP=false
 Bittorrent\uTP_rate_limited=true
 Connection\GlobalDLLimitAlt=0
 Connection\GlobalUPLimitAlt=0
-#Connection\InetAddress=1.1.1.1
-#Connection\Interface=eth0
-#Connection\InterfaceAddress=0.0.0.0
-#Connection\InterfaceName=eth0
 Connection\ResolvePeerCountries=true
 Connection\PortRangeMin=2000
 Downloads\DiskWriteCacheSize=64
@@ -207,7 +200,8 @@ WebUI\Password_ha1=@ByteArray($qbPassOld)
 WebUI\Password_PBKDF2="@ByteArray($qbPassNew)"
 EOF
 
-################################设置qbittorrent命令###########################
+################################设置qbittorrent命令###############################
+
 qbit_command="/usr/bin/qbittorrent"
 touch $qbit_command
 cat>$qbit_command<<EOF
@@ -226,8 +220,10 @@ EOF
 cd /usr/bin && chmod +x qbittorrent
 
 ##############################安装mediainfo和ffmpeg###############################
+
 apt -y install mediainfo
 apt -y install ffmpeg
+apt -y install lrzsz
 
 apt -y install python3-pip
 pip3 install bencode.py cn2an requests qbittorrent-api bs4 lxml pymediainfo pyimgbox

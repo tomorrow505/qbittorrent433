@@ -98,6 +98,10 @@ cd qBittorrent-release-4.3.3
 make -j$(nproc)
 make install
 
+systemctl enable qbittorrent.service # 设置开机自启动
+echo y|qbittorrent-nox --webui-port=2021
+echo -e '\003'
+
 # 写入配置文件
 qbit_service="/etc/systemd/system/qbittorrent.service"
 touch $qbit_service
@@ -200,11 +204,6 @@ WebUI\Username=$name
 WebUI\Password_ha1=@ByteArray($qbPassOld)
 WebUI\Password_PBKDF2="@ByteArray($qbPassNew)"
 EOF
-
-
-systemctl enable qbittorrent.service # 设置开机自启动
-echo y|qbittorrent-nox --webui-port=2021
-echo -e '\003'
 
 ################################设置qbittorrent命令###########################
 qbit_command="/usr/bin/qbittorrent"

@@ -8,3 +8,5 @@ Then input your username.
 
 Command:
 `qbittorrent start|stop|restart` to start|stop|restart qbittorrent.
+
+Plus: Mediainfo/FFmpeg/rzsz

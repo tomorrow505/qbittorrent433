@@ -114,10 +114,10 @@ ExecStop=/usr/bin/killall -w qbittorrent-nox
 WantedBy=multi-user.target
 EOF
 
-# command=$(ls /root/.config/qBittorrent/)
+# command=$(ls $HOME/.config/qBittorrent/)
 # echo $command
-qbit_conf1="/root/.config/qBittorrent/qBittorrent.conf"
-qbit_conf2="/root/.config/qBittorrent/qbittorrent.conf"
+qbit_conf1="$HOME/.config/qBittorrent/qBittorrent.conf"
+qbit_conf2="$HOME/.config/qBittorrent/qbittorrent.conf"
 if [ -f "$qbit_conf1" ]; then
   qbit_conf=$qbit_conf1
 else

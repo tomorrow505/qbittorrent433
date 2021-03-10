@@ -180,9 +180,9 @@ class Capture:
 if __name__ == '__main__':
     # qBittorrent
     qbt_address = 'http://127.0.0.1/'
-    qbt_port = 8080
+    qbt_port = 2021
     qbt_user = 'admin'
-    qbt_password = '123456'
+    qbt_password = 'adminadmin'
 
     base_path = os.path.dirname(__file__)
     fake_ua = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) ' \

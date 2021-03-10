@@ -5,14 +5,14 @@
 wget https://raw.githubusercontent.com/tomorrow505/qbittorrent433/main/get_mediaifno_picture.py
 scritp_path=$(pwd)
 
-if [ ! $(ffmpeg) ]; then
-  apt-install -y ffmpeg
+if ! [ -x "$(command -v ffmpeg)" ]; then
+  apt -y install ffmpeg >/dev/null 2>&1
 fi
-if [ ! $(mediainfo) ]; then
-  apt-install -y mediainfo
+if ! [ -x "$(command -v mediainfo)" ]; then
+  apt -y install mediainfo >/dev/null 2>&1
 fi
-if [ ! $(pip3) ]; then
-  apt-install -y python3-pip
+if ! [ -x "$(command -v pip3)" ]; then
+  apt -y install python3-pip >/dev/null 2>&1
 fi
  
 pip3 install pymediainfo pyimgbox qbittorrent-api

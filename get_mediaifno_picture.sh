@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # get get_mediaifno_picture.py and install necessary package(s).
-cd $HOME
+
 wget https://raw.githubusercontent.com/tomorrow505/qbittorrent433/main/get_mediaifno_picture.py -O get_mediaifno_picture.py
 scritp_path=$(pwd)
 mkdir tmp && chmod 777 tmp

@@ -4,6 +4,7 @@
 
 wget https://raw.githubusercontent.com/tomorrow505/qbittorrent433/main/get_mediaifno_picture.py
 scritp_path=$(pwd)
+mkdir tmp && chmod 777 tmp
 
 if ! [ -x "$(command -v ffmpeg)" ]; then
   apt -y install ffmpeg >/dev/null 2>&1

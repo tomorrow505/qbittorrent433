@@ -90,10 +90,9 @@ class Capture:
 
     def get_info(self):
         mediainfo = self.get_torrent_mediainfo()
-        if mediainfo:
-            mediainfo = '[font=Courier New][quote=MediaInfo]{info}[/quote][/font]'.format(info=mediainfo)
+                            
         pictures = self.get_torrent_picture()
-        mediainfo += pictures
+        mediainfo += '\n' + pictures
         print(mediainfo)
 
     # -----------------------------------------mediainfo相关函数-------------------------------------------------

@@ -47,7 +47,7 @@ apt-get -y install libicu-dev　　　　　#支持正则表达式的UNICODE字�
 apt-get -y install libbz2-dev
 
 wget https://dl.bintray.com/boostorg/release/1.75.0/source/boost_1_75_0.tar.bz2
-tar -jxvf boost_1_75_0.tar.bz2
+tar -jxvf boost_1_75_0.tar.bz2 > /dev/null
 cd boost_1_75_0
 sh ./bootstrap.sh
 ./b2

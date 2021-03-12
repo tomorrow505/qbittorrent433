@@ -244,6 +244,6 @@ up_path="/usr/bin/up"
 touch $up_path
 cat>$up_path<<EOF
 #!/bin/bash
-python3 "${autoseed_dir}/main.py" -i "$1"
+python3 "${autoseed_dir}/main.py" -i "\$1"
 EOF
 cd /usr/bin/ && chmod +x up

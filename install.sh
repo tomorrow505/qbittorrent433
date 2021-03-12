@@ -228,7 +228,7 @@ apt -y install ffmpeg
 apt -y install lrzsz
 
 apt -y install python3-pip
-pip3 install bencode.py cn2an requests qbittorrent-api bs4 lxml pymediainfo pyimgbox
+pip3 install setuptools bencode.py cn2an requests qbittorrent-api bs4 lxml pymediainfo pyimgbox
 
 # 创建up命令用于剧鸡的使用，主文件问main.py
 up_path="/usr/bin/up"

@@ -96,7 +96,7 @@ systemctl enable qbittorrent.service # 设置开机自启动
 
 echo y|qbittorrent-nox --webui-port=2021 # 开启qb
 pid=$!
-kill -INT $pid
+kill -s 2 $pid
 # echo $'\003' # 尝试ctrl+c退出
 
 #################################写入配置文件###################################

@@ -22,7 +22,11 @@ boost_dir="/home/${name}/boost"
 autoseed_dir="/home/${name}/Autoseed"
 install_log="/home/${name}/install.log"
 
-mkdir "/home/$name" &>>$install_log
+if [[ ! -f "/home/$name" ]]; then
+    mkdir "/home/$name" &>>$install_log
+fi
+touch $install_log
+
 mkdir $lib_dir &>>$install_log
 mkdir $qbit_dir &>>$install_log
 mkdir $boost_dir &>>$install_log

@@ -1,5 +1,14 @@
 #!/bin/bash
 
+# 打印进度条的函数
+bar(){
+    while :
+    do
+        echo -n "#"
+        sleep 2
+    done
+}
+
 ###################################环境准备#############################
 
 version="$(cat /proc/version)"
@@ -56,12 +65,16 @@ apt-get -y install libicu-dev &>>$install_log
 apt-get -y install libbz2-dev &>>$install_log
 
 echo "开始获取文件并编译……"
+bar & 
+pid=$!
 wget https://dl.bintray.com/boostorg/release/1.75.0/source/boost_1_75_0.tar.bz2 &>>$install_log
 tar -jxvf boost_1_75_0.tar.bz2 > /dev/null
 cd boost_1_75_0
 sh ./bootstrap.sh &>>$install_log
 ./b2 &>>$install_log
 ./b2/install &>>$install_log
+kill $pid
+
 echo "编译boost成功……"
 
 ####################################编译libtorrent############################
@@ -72,6 +85,8 @@ apt -y install libssl-dev &>>$install_log
 apt -y install openssl &>>$install_log
 
 echo "开始获取文件并编译……"
+bar & 
+pid=$!
 wget https://github.com/arvidn/libtorrent/releases/download/v1.2.11/libtorrent-rasterbar-1.2.11.tar.gz &>>$install_log
 tar xf libtorrent-rasterbar-1.2.11.tar.gz &>>$install_log
 cd libtorrent-rasterbar-1.2.11
@@ -80,6 +95,8 @@ cd libtorrent-rasterbar-1.2.11
 make -j$(nproc) &>>$install_log
 make install &>>$install_log
 ldconfig &>>$install_log
+kill $pid
+
 echo "编译libtorrent成功……"
 
 ####################################安装qbittorrent#############################
@@ -100,13 +117,19 @@ if [ -f "$file2" ]; then
 fi
 
 echo "开始获取文件并编译……"
+
+bar &
+pid=$!
+
 wget https://github.com/qbittorrent/qBittorrent/archive/release-4.3.3.tar.gz &>>$install_log
 tar xf release-4.3.3.tar.gz &>>$install_log
-cd qBittorrent-release-4.3.3
+rm release-4.3.3.tar.gz && cd qBittorrent-release-4.3.3
 ./configure --disable-gui --disable-debug  &>>$install_log
 
 make -j$(nproc) &>>$install_log
 make install &>>$install_log
+
+kill $pid
 echo "qbittorrent编译成功！！！"
 
 #################################写入配置文件###################################

@@ -20,70 +20,72 @@ lib_dir="/home/${name}/libtorrent"
 qbit_dir="/home/${name}/qbittorrent"
 boost_dir="/home/${name}/boost"
 autoseed_dir="/home/${name}/Autoseed"
+install_log="/home/${name}/install.log"
+touch $install_log
 
-mkdir "/home/$name" &>>install.log
-mkdir $lib_dir &>>install.log
-mkdir $qbit_dir &>>install.log
-mkdir $boost_dir &>>install.log
-mkdir $autoseed_dir &>>install.log
+mkdir "/home/$name" &>>$install_log
+mkdir $lib_dir &>>$install_log
+mkdir $qbit_dir &>>$install_log
+mkdir $boost_dir &>>$install_log
+mkdir $autoseed_dir &>>$install_log
 
-cd $autoseed_dir && mkdir cache && chmod 777 cache &>>install.log
-cd $autoseed_dir && mkdir tmp && chmod 777 tmp &>>install.log
-cd $qbit_dir && mkdir torrent && mkdir download &>>install.log
+cd $autoseed_dir && mkdir cache && chmod 777 cache &>>$install_log
+cd $autoseed_dir && mkdir tmp && chmod 777 tmp &>>$install_log
+cd $qbit_dir && mkdir torrent && mkdir download &>>$install_log
 
 #################################整体环境部署##############################
 
 cd "/home/$name"
 
 echo "正在更新……"
-apt update &>>install.log
+apt update &>>$install_log
 
 echo "正在配置整体编译环境……"
-apt -y install build-essential pkg-config automake libtool git libgeoip-dev python3 python3-dev &>>install.log
-apt -y install libboost-dev libboost-system-dev libboost-chrono-dev libboost-random-dev libssl-dev &>>install.log
-apt -y install qtbase5-dev qttools5-dev-tools libqt5svg5-dev zlib1g-dev &>>install.log
+apt -y install build-essential pkg-config automake libtool git libgeoip-dev python3 python3-dev &>>$install_log
+apt -y install libboost-dev libboost-system-dev libboost-chrono-dev libboost-random-dev libssl-dev &>>$install_log
+apt -y install qtbase5-dev qttools5-dev-tools libqt5svg5-dev zlib1g-dev &>>$install_log
 
 ####################################编译boost##############################
 
 cd $boost_dir
 echo "开始编译boost，安装必要的包……"
-apt-get -y install mpi-default-dev　&>>install.log　#安装mpi库
-apt-get -y install libicu-dev &>>install.log　　　　 #支持正则表达式的UNICODE字符集　
-apt-get -y install libbz2-dev &>>install.log
+apt-get -y install mpi-default-dev　&>>$install_log　#安装mpi库
+apt-get -y install libicu-dev &>>$install_log　　　 #支持正则表达式的UNICODE字符集　
+apt-get -y install libbz2-dev &>>$install_log
 
 echo "开始获取文件并编译……"
-wget https://dl.bintray.com/boostorg/release/1.75.0/source/boost_1_75_0.tar.bz2 &>>install.log
+wget https://dl.bintray.com/boostorg/release/1.75.0/source/boost_1_75_0.tar.bz2 &>>$install_log
 tar -jxvf boost_1_75_0.tar.bz2 > /dev/null
 cd boost_1_75_0
-sh ./bootstrap.sh &>>install.log
-./b2 &>>install.log
-./b2/install &>>install.log
+sh ./bootstrap.sh &>>$install_log
+./b2 &>>$install_log
+./b2/install &>>$install_log
 echo "编译boost成功……"
 
 ####################################编译libtorrent############################
 
 cd $lib_dir
 echo "开始编译libtorrent，安装必要的包……"
-apt -y install libssl-dev &>>install.log
-apt -y install openssl &>>install.log
+apt -y install libssl-dev &>>$install_log
+apt -y install openssl &>>$install_log
 
 echo "开始获取文件并编译……"
-wget https://github.com/arvidn/libtorrent/releases/download/v1.2.11/libtorrent-rasterbar-1.2.11.tar.gz &>>install.log
-tar xf libtorrent-rasterbar-1.2.11.tar.gz &>>install.log
+wget https://github.com/arvidn/libtorrent/releases/download/v1.2.11/libtorrent-rasterbar-1.2.11.tar.gz &>>$install_log
+tar xf libtorrent-rasterbar-1.2.11.tar.gz &>>$install_log
 cd libtorrent-rasterbar-1.2.11
-./configure --disable-debug --enable-encryption --with-libgeoip=system CXXFLAGS=-std=c++14 &>>install.log
+./configure --disable-debug --enable-encryption --with-libgeoip=system CXXFLAGS=-std=c++14 &>>$install_log
 
-make -j$(nproc) &>>install.log
-make install &>>install.log
-ldconfig &>>install.log
+make -j$(nproc) &>>$install_log
+make install &>>$install_log
+ldconfig &>>$install_log
 echo "编译libtorrent成功……"
 
 ####################################安装qbittorrent#############################
 
 cd $qbit_dir
 echo "开始编译qbittorrent，安装必要的包……"
-apt-get -y install qt5-default &>>install.log
-apt-get -y install zlib1g-dev &>>install.log
+apt-get -y install qt5-default &>>$install_log
+apt-get -y install zlib1g-dev &>>$install_log
 
 # 将命令改名，可能是新版本的调用脚本命名不一样了
 file1="/usr/bin/lrelease"
@@ -96,13 +98,13 @@ if [ -f "$file2" ]; then
 fi
 
 echo "开始获取文件并编译……"
-wget https://github.com/qbittorrent/qBittorrent/archive/release-4.3.3.tar.gz &>>install.log
-tar xf release-4.3.3.tar.gz &>>install.log
+wget https://github.com/qbittorrent/qBittorrent/archive/release-4.3.3.tar.gz &>>$install_log
+tar xf release-4.3.3.tar.gz &>>$install_log
 cd qBittorrent-release-4.3.3
-./configure --disable-gui --disable-debug  &>>install.log
+./configure --disable-gui --disable-debug  &>>$install_log
 
-make -j$(nproc) &>>install.log
-make install &>>install.log
+make -j$(nproc) &>>$install_log
+make install &>>$install_log
 echo "qbittorrent编译成功！！！"
 
 echo "第一次运行qbittorrent，请按ctrl+c结束……"
@@ -242,33 +244,39 @@ echo "安装到此结束…………………………"
 
 ##############################配置剧鸡相关###############################
 
+function install_other(){
+    
+}
+
 echo -n "是否想要安装其他剧鸡需要的python包(y|n)? "
 read install_other
-if [[ install_other == "y" ]] || [[ install_other == "Y" ]]; then
-    echo "正在安装ffmpeg|mediainfo|lrzsz|pip3……"
-    apt -y install mediainfo
-    apt -y install ffmpeg
-    apt -y install lrzsz
-    apt -y install python3-pip
-    
-    echo "正在安装需要的包，失败的话尝试使用手动安装……"
-    echo "pip3 install setuptools bencode.py cn2an requests qbittorrent-api bs4 lxml pymediainfo  pyimgbox"
-    pip3 install setuptools 
-    pip3 install bencode.py 
-    pip3 install cn2an 
-    pip3 install requests 
-    pip3 install qbittorrent-api 
-    pip3 install bs4 
-    pip3 install lxml 
-    pip3 install pymediainfo 
-    pip3 install pyimgbox
-
-    # 创建up命令用于剧鸡的使用，主文件问main.py
-    up_path="/usr/bin/up"
-    touch $up_path
-    cat>$up_path<<EOF
-    #!/bin/bash
-    python3 "${autoseed_dir}/main.py" -i "\$1"
-    EOF
-    cd /usr/bin/ && chmod +x up
+if [[ $install_other == "n" ]] || [[ $install_other == "N" ]]; then
+    echo "退出安装……"
+    exit 0
 fi
+echo "正在安装ffmpeg|mediainfo|lrzsz|pip3……"
+apt -y install mediainfo &>>$install_log
+apt -y install ffmpeg &>>$install_log
+apt -y install lrzsz &>>$install_log
+apt -y install python3-pip &>>$install_log
+
+echo "正在安装需要的包，失败的话尝试使用手动安装……"
+echo "pip3 install setuptools bencode.py cn2an requests qbittorrent-api bs4 lxml pymediainfo  pyimgbox"
+pip3 install setuptools &>>$install_log && echo "成功安装setuptools……"
+pip3 install bencode.py &>>$install_log && echo "成功安装bencode.py……"
+pip3 install cn2an &>>$install_log && echo "成功安装cn2an……"
+pip3 install requests &>>$install_log && echo "成功安装requests……"
+pip3 install qbittorrent-api &>>$install_log && echo "成功安装qbittorrent-api……"
+pip3 install bs4 &>>$install_log && echo "成功安装bs4s……"
+pip3 install lxml &>>$install_log && echo "成功安装lxml……"
+pip3 install pymediainfo &>>$install_log && echo "成功安装pymediainfo……"
+pip3 install pyimgbox &>>$install_log && echo "成功安装pyimgbox……"
+
+# 创建up命令用于剧鸡的使用，主文件问main.py
+up_path="/usr/bin/up"
+touch $up_path
+cat>$up_path<<EOF
+#!/bin/bash
+python3 "${autoseed_dir}/main.py" -i "\$1"
+EOF
+cd /usr/bin/ && chmod +x up

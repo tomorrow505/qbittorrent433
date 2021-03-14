@@ -29,9 +29,9 @@ mkdir $qbit_dir &>>$install_log
 mkdir $boost_dir &>>$install_log
 mkdir $autoseed_dir &>>$install_log
 
-cd $autoseed_dir && mkdir cache && chmod 777 cache &>>$install_log
-cd $autoseed_dir && mkdir tmp && chmod 777 tmp &>>$install_log
-cd $qbit_dir && mkdir torrent && mkdir download &>>$install_log
+cd $autoseed_dir && mkdir cache &>>$install_log && chmod 777 cache &>>$install_log
+cd $autoseed_dir && mkdir tmp &>>$install_log && chmod 777 tmp &>>$install_log
+cd $qbit_dir && mkdir torrent &>>$install_log && mkdir download &>>$install_log
 
 #################################整体环境部署##############################
 

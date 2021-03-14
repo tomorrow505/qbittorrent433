@@ -49,8 +49,8 @@ apt -y install qtbase5-dev qttools5-dev-tools libqt5svg5-dev zlib1g-dev &>>$inst
 
 cd $boost_dir
 echo "开始编译boost，安装必要的包……"
-apt-get -y install mpi-default-dev　&>>$install_log　#安装mpi库
-apt-get -y install libicu-dev &>>$install_log　　　 #支持正则表达式的UNICODE字符集　
+apt-get -y install mpi-default-dev　&>>$install_log
+apt-get -y install libicu-dev &>>$install_log
 apt-get -y install libbz2-dev &>>$install_log
 
 echo "开始获取文件并编译……"

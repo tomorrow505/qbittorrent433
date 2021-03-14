@@ -242,14 +242,17 @@ echo "安装到此结束…………………………"
 
 ##############################配置剧鸡相关###############################
 
-echo -n "是否想要安装其他剧鸡需要的python包(y|n)?"
+echo -n "是否想要安装其他剧鸡需要的python包(y|n)? "
 read install_other
 if [[ install_other == "y" ]] || [[ install_other == "Y" ]]; then
+    echo "正在安装ffmpeg|mediainfo|lrzsz|pip3……"
     apt -y install mediainfo
     apt -y install ffmpeg
     apt -y install lrzsz
     apt -y install python3-pip
-
+    
+    echo "正在安装需要的包，失败的话尝试使用手动安装……"
+    echo "pip3 install setuptools bencode.py cn2an requests qbittorrent-api bs4 lxml pymediainfo  pyimgbox"
     pip3 install setuptools 
     pip3 install bencode.py 
     pip3 install cn2an 

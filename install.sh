@@ -244,10 +244,6 @@ echo "安装到此结束…………………………"
 
 ##############################配置剧鸡相关###############################
 
-function install_other(){
-    
-}
-
 echo -n "是否想要安装其他剧鸡需要的python包(y|n)? "
 read install_other
 if [[ $install_other == "n" ]] || [[ $install_other == "N" ]]; then

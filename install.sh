@@ -280,3 +280,4 @@ cat>$up_path<<EOF
 python3 "${autoseed_dir}/main.py" -i "\$1"
 EOF
 cd /usr/bin/ && chmod +x up
+echo "成功创建命令up，上传main.py到Autoseed目录即可手动调用:up hash_of_torrent发布任务。"

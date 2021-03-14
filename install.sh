@@ -103,7 +103,6 @@ cd qBittorrent-release-4.3.3
 
 make -j$(nproc) &>>install.log
 make install &>>install.log
-systemctl enable qbittorrent.service # 设置开机自启动
 echo "qbittorrent编译成功！！！"
 
 echo "第一次运行qbittorrent，请按ctrl+c结束……"
@@ -127,6 +126,7 @@ ExecStop=/usr/bin/killall -w qbittorrent-nox
 [Install]
 WantedBy=multi-user.target
 EOF
+systemctl enable qbittorrent.service # 设置开机自启动
 
 # command=$(ls $HOME/.config/qBittorrent/)
 # echo $command

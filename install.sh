@@ -21,7 +21,7 @@ qbit_dir="/home/${name}/qbittorrent"
 boost_dir="/home/${name}/boost"
 autoseed_dir="/home/${name}/Autoseed"
 install_log="/home/${name}/install.log"
-mkdir "/home/$name" >/dev/null
+mkdir "/home/$name" 2>/dev/null
 touch $install_log
 
 mkdir $lib_dir &>>$install_log

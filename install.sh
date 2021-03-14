@@ -73,7 +73,7 @@ cd boost_1_75_0
 sh ./bootstrap.sh &>>$install_log
 ./b2 &>>$install_log
 ./b2/install &>>$install_log
-kill $pid
+kill $pid &>/dev/null
 
 echo "编译boost成功……"
 
@@ -95,7 +95,7 @@ cd libtorrent-rasterbar-1.2.11
 make -j$(nproc) &>>$install_log
 make install &>>$install_log
 ldconfig &>>$install_log
-kill $pid
+kill $pid &>/dev/null
 
 echo "编译libtorrent成功……"
 
@@ -129,7 +129,8 @@ rm release-4.3.3.tar.gz && cd qBittorrent-release-4.3.3
 make -j$(nproc) &>>$install_log
 make install &>>$install_log
 
-kill $pid
+kill $pid &>/dev/null
+
 echo "qbittorrent编译成功！！！"
 
 #################################写入配置文件###################################

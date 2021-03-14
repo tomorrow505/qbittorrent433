@@ -107,10 +107,6 @@ make -j$(nproc) &>>$install_log
 make install &>>$install_log
 echo "qbittorrent编译成功！！！"
 
-echo "第一次运行qbittorrent，请按ctrl+c结束……"
-echo y|qbittorrent-nox --webui-port=2021 # 开启qb
-# echo $'\003' # 尝试ctrl+c退出
-
 #################################写入配置文件###################################
 
 qbit_service="/etc/systemd/system/qbittorrent.service"
@@ -129,9 +125,13 @@ WantedBy=multi-user.target
 EOF
 systemctl enable qbittorrent.service # 设置开机自启动
 
+echo "第一次运行qbittorrent，请按ctrl+c结束……"
+echo y|qbittorrent-nox --webui-port=2021 # 开启qb
+# echo $'\003' # 尝试ctrl+c退出
+
 # command=$(ls $HOME/.config/qBittorrent/)
 # echo $command
-echo "开始写入配置文件……"
+echo "第一次运行后开始写入配置文件……"
 qbit_conf1="$HOME/.config/qBittorrent/qBittorrent.conf"
 qbit_conf2="$HOME/.config/qBittorrent/qbittorrent.conf"
 if [ -f "$qbit_conf1" ]; then

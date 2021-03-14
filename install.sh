@@ -106,8 +106,7 @@ make install &>>install.log
 echo "qbittorrent编译成功！！！"
 
 echo "第一次运行qbittorrent，请按ctrl+c结束……"
-echo y|qbittorrent-nox --webui-port=2021 && pid=$! # 开启qb
-kill -s 2 $pid
+echo y|qbittorrent-nox --webui-port=2021 # 开启qb
 # echo $'\003' # 尝试ctrl+c退出
 
 #################################写入配置文件###################################

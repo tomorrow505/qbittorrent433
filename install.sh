@@ -243,7 +243,7 @@ echo "安装到此结束…………………………"
 
 ##############################配置剧鸡相关###############################
 
-echo "是否想要安装其他剧鸡需要的python包(y|n)?"
+echo -n "是否想要安装其他剧鸡需要的python包(y|n)?"
 read install_other
 if [[ install_other == "y" ]] || [[ install_other == "Y" ]]; then
     apt -y install mediainfo

@@ -4,8 +4,10 @@
 
 version="$(cat /proc/version)"
 ubuntu="Ubuntu"
-result=$(echo $version | grep "${ubuntu}")
-if [[ "$result" != "" ]]
+debian="Debian" 
+result1=$(echo $version | grep "${ubuntu}")
+result2=$(echo $version | grep "${ubuntu}")
+if [[ "$result1" != "" ]] || [[ "$result2" != "" ]]
 then
     cp /etc/vim/vimrc ~/.vimrc
 fi
@@ -226,16 +228,23 @@ qbit_command="/usr/bin/qbittorrent"
 touch $qbit_command
 cat>$qbit_command<<EOF
 #!/bin/bash
-if [ \$1 == "start" ]
-then
-  systemctl start qbittorrent.service #启动qBittorrent
-elif [ \$1 == "stop" ]
-then
-  systemctl stop qbittorrent.service #关闭qBittorrent
-elif [ \$1 == "restart" ]
-then
-  systemctl restart qbittorrent.service #重启qBittorrent
-fi
+command="up"
+case \$1 in
+    s|start)
+        systemctl start qbittorrent.service && echo "服务已经开启……" #启动qBittorrent
+        ;;
+    stop)
+        systemctl stop qbittorrent.service && echo "服务已经关闭……" #关闭qBittorrent
+        ;;
+    restart)
+        systemctl restart qbittorrent.service && echo "服务已经重启……"
+        ;;
+    *)
+        echo "Usage: $command [start|stop|restart]"
+        exit 1
+        ;;
+esac
+exit 0
 EOF
 cd /usr/bin && chmod +x qbittorrent
 

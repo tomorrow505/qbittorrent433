@@ -118,6 +118,8 @@ make install &>>$install_log
 ldconfig &>>$install_log
 kill $pid &>/dev/null
 
+
+sudo apt -y upgrade libtorrent-rasterbar-dev &>$install_log
 echo "编译libtorrent成功……"
 
 ####################################安装qbittorrent#############################

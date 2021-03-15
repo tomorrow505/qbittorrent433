@@ -103,7 +103,9 @@ echo "编译boost成功……"
 cd $lib_dir
 echo "开始编译libtorrent，安装必要的包……"
 apt -y install libssl-dev &>>$install_log
-apt -y install openssl &>>$install_log
+apt -y install openssl &>>$install_log 
+apt -y install libtorrent-rasterbar-dev &>>$install_log
+sudo apt -y upgrade libtorrent-rasterbar-dev &>$install_log
 
 echo "开始获取文件并编译……"
 bar & 
@@ -111,15 +113,13 @@ pid=$!
 wget https://github.com/arvidn/libtorrent/releases/download/v1.2.12/libtorrent-rasterbar-1.2.12.tar.gz &>>$install_log
 tar xf libtorrent-rasterbar-1.2.12.tar.gz &>>$install_log
 cd libtorrent-rasterbar-1.2.12
-./configure --disable-debug --enable-encryption --with-libgeoip=system CXXFLAGS="-std=c++17" &>>$install_log
+./configure --disable-debug --enable-encryption --with-libgeoip=system CXXFLAGS="-std=c++14" &>>$install_log
 
 make -j$(nproc) &>>$install_log
 make install &>>$install_log
 ldconfig &>>$install_log
 kill $pid &>/dev/null
 
-
-sudo apt -y upgrade libtorrent-rasterbar-dev &>$install_log
 echo "编译libtorrent成功……"
 
 ####################################安装qbittorrent#############################
@@ -147,7 +147,7 @@ pid=$!
 wget https://github.com/qbittorrent/qBittorrent/archive/release-4.3.3.tar.gz &>>$install_log
 tar xf release-4.3.3.tar.gz &>>$install_log
 rm release-4.3.3.tar.gz && cd qBittorrent-release-4.3.3
-./configure --disable-gui --disable-debug CXXFLAGS="-std=c++17" &>>$install_log
+./configure --disable-gui --disable-debug CXXFLAGS="-std=c++14" &>>$install_log
 
 make -j$(nproc) &>>$install_log
 make install &>>$install_log

@@ -4,25 +4,19 @@
 what_id="$(source /etc/os-release && printf "%s" "${ID}")"                             # Get the main platform name, for example: debian, ubuntu or alpine
 what_version_codename="$(source /etc/os-release && printf "%s" "${VERSION_CODENAME}")" # Get the codename for this this OS. Note, ALpine does not have a unique codename.
 what_version_id="$(source /etc/os-release && printf "%s" "${VERSION_ID}")"             # Get the version number for this codename, for example: 10, 20.04, 3.12.4
-#
-if [[ "${what_id}" =~ ^(alpine)$ ]]; then # If alpine, set the codename to alpine. We check for min v3.10 later with codenames.
-	what_version_codename="alpine"
-fi
-#
-## Check against allowed codenames or if the codename is alpine version greater thab 3.10
-if [[ ! "${what_version_codename}" =~ ^(alpine|buster|bionic|focal)$ ]] || [[ "${what_version_codename}" =~ ^(alpine)$ && "${what_version_id//\./}" -lt "3100" ]]; then
+td="\e[2m"
+
+if [[ ! "${what_version_codename}" =~ ^(buster|bionic|focal)$ ]]; then
 	echo
-	echo -e " ${cly}This is not a supported OS. There is no reason to continue.${cend}"
+	echo -e " This is not a supported OS. There is no reason to continue."
 	echo
-	echo -e " id: ${td}${cly}${what_id}${cend} codename: ${td}${cly}${what_version_codename}${cend} version: ${td}${clr}${what_version_id}${cend}"
+	echo -e " id: ${td}${what_id} codename: ${td}${what_version_codename} version: ${td}${what_version_id}"
 	echo
-	echo -e " ${td}These are the supported platforms${cend}"
+	echo -e " ${td}These are the supported platforms"
 	echo
-	echo -e " ${clm}Debian${cend} - ${clb}buster${cend}"
+	echo -e " Debian -buster"
 	echo
-	echo -e " ${clm}Ubuntu${cend} - ${clb}bionic${cend} - ${clb}focal${cend}"
-	echo
-	echo -e " ${clm}Alpine${cend} - ${clb}3.10.0${cend} or greater"
+	echo -e " Ubuntu - bionic -focal"
 	echo
 	exit
 fi

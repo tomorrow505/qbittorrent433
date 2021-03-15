@@ -16,7 +16,7 @@ if [[ ! "${what_version_codename}" =~ ^(buster|bionic|focal)$ ]]; then
 	echo
 	echo -e " Debian -buster"
 	echo
-	echo -e " Ubuntu - bionic -focal"
+	echo -e " Ubuntu -bionic -focal"
 	echo
 	exit
 fi

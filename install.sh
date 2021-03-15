@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# 遇到错误就退出
-set -e errexit
-
 ##############################检查是否符合系统版本###############################
 what_id="$(source /etc/os-release && printf "%s" "${ID}")"                             # Get the main platform name, for example: debian, ubuntu or alpine
 what_version_codename="$(source /etc/os-release && printf "%s" "${VERSION_CODENAME}")" # Get the codename for this this OS. Note, ALpine does not have a unique codename.

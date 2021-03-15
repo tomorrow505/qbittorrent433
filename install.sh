@@ -1,6 +1,33 @@
 #!/bin/bash
 
-# 打印进度条的函数
+##############################检查是否符合系统版本###############################
+what_id="$(source /etc/os-release && printf "%s" "${ID}")"                             # Get the main platform name, for example: debian, ubuntu or alpine
+what_version_codename="$(source /etc/os-release && printf "%s" "${VERSION_CODENAME}")" # Get the codename for this this OS. Note, ALpine does not have a unique codename.
+what_version_id="$(source /etc/os-release && printf "%s" "${VERSION_ID}")"             # Get the version number for this codename, for example: 10, 20.04, 3.12.4
+#
+if [[ "${what_id}" =~ ^(alpine)$ ]]; then # If alpine, set the codename to alpine. We check for min v3.10 later with codenames.
+	what_version_codename="alpine"
+fi
+#
+## Check against allowed codenames or if the codename is alpine version greater thab 3.10
+if [[ ! "${what_version_codename}" =~ ^(alpine|buster|bionic|focal)$ ]] || [[ "${what_version_codename}" =~ ^(alpine)$ && "${what_version_id//\./}" -lt "3100" ]]; then
+	echo
+	echo -e " ${cly}This is not a supported OS. There is no reason to continue.${cend}"
+	echo
+	echo -e " id: ${td}${cly}${what_id}${cend} codename: ${td}${cly}${what_version_codename}${cend} version: ${td}${clr}${what_version_id}${cend}"
+	echo
+	echo -e " ${td}These are the supported platforms${cend}"
+	echo
+	echo -e " ${clm}Debian${cend} - ${clb}buster${cend}"
+	echo
+	echo -e " ${clm}Ubuntu${cend} - ${clb}bionic${cend} - ${clb}focal${cend}"
+	echo
+	echo -e " ${clm}Alpine${cend} - ${clb}3.10.0${cend} or greater"
+	echo
+	exit
+fi
+###############################打印进度条的函数################################
+
 bar(){
     while :
     do
@@ -12,7 +39,7 @@ bar(){
 # 遇到错误就退出
 set -e errexit
 
-###################################环境准备#############################
+###############################环境准备########################################
 
 version="$(cat /proc/version)"
 ubuntu="Ubuntu"
@@ -24,7 +51,7 @@ then
     cp /etc/vim/vimrc ~/.vimrc
 fi
 
-###################################目录准备#############################
+##############################目录准备############################################
 
 echo -n "输入你的用户名："
 read name

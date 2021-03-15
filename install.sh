@@ -26,7 +26,7 @@ bar(){
     while :
     do
         echo -n "#"
-        sleep 2
+        sleep 5
     done
 }
 

@@ -103,9 +103,7 @@ echo "编译boost成功……"
 cd $lib_dir
 echo "开始编译libtorrent，安装必要的包……"
 apt -y install libssl-dev &>>$install_log
-apt -y install openssl &>>$install_log 
-apt -y install libtorrent-rasterbar-dev &>>$install_log
-sudo apt -y upgrade libtorrent-rasterbar-dev &>$install_log
+apt -y install openssl &>>$install_log
 
 echo "开始获取文件并编译……"
 bar & 

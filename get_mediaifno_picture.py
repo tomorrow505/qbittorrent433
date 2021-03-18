@@ -37,7 +37,7 @@ async def up_imgbox(file_paths, gallery_name):
 
 
 class Capture:
-    # 待转发种子信息，从qbt动作中获取
+
     info_hash: str = None
     torrent_name: str = ''
     save_path: str = ''

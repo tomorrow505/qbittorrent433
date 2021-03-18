@@ -110,10 +110,10 @@ sudo apt -y upgrade libtorrent-rasterbar-dev &>$install_log
 echo "开始获取文件并编译……"
 bar & 
 pid=$!
-wget https://github.com/arvidn/libtorrent/releases/download/v1.2.12/libtorrent-rasterbar-1.2.12.tar.gz &>>$install_log
-tar xf libtorrent-rasterbar-1.2.12.tar.gz &>>$install_log
-cd libtorrent-rasterbar-1.2.12
-./configure --disable-debug --enable-encryption --with-libgeoip=system CXXFLAGS="-std=c++14" &>>$install_log
+wget https://github.com/arvidn/libtorrent/releases/download/v1.2.11/libtorrent-rasterbar-1.2.11.tar.gz &>>$install_log
+tar xf libtorrent-rasterbar-1.2.11.tar.gz &>>$install_log
+cd libtorrent-rasterbar-1.2.11
+./configure --disable-debug --enable-encryption --with-libgeoip=system CXXFLAGS=-std=c++14 &>>$install_log
 
 make -j$(nproc) &>>$install_log
 make install &>>$install_log
@@ -147,7 +147,7 @@ pid=$!
 wget https://github.com/qbittorrent/qBittorrent/archive/release-4.3.3.tar.gz &>>$install_log
 tar xf release-4.3.3.tar.gz &>>$install_log
 rm release-4.3.3.tar.gz && cd qBittorrent-release-4.3.3
-./configure --disable-gui --disable-debug CXXFLAGS="-std=c++14" &>>$install_log
+./configure --disable-gui --disable-debug &>>$install_log
 
 make -j$(nproc) &>>$install_log
 make install &>>$install_log
@@ -172,6 +172,7 @@ ExecStop=/usr/bin/killall -w qbittorrent-nox
 [Install]
 WantedBy=multi-user.target
 EOF
+
 systemctl enable qbittorrent.service # 设置开机自启动
 
 echo "第一次运行qbittorrent，请按ctrl+c结束……"

@@ -172,6 +172,7 @@ WantedBy=multi-user.target
 EOF
 
 systemctl enable qbittorrent.service # 设置开机自启动
+apt-get install qbittorrent-nox
 
 echo "第一次运行qbittorrent，请按ctrl+c结束……"
 echo y|qbittorrent-nox --webui-port=2021 # 开启qb

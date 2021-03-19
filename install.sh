@@ -56,45 +56,44 @@ install_log="/home/${name}/install.log"
 mkdir "/home/$name" 2>/dev/null
 touch $install_log
 
-mkdir $lib_dir &>>$install_log
-mkdir $qbit_dir &>>$install_log
-mkdir $boost_dir &>>$install_log
-mkdir $autoseed_dir &>>$install_log
+mkdir $lib_dir
+mkdir $qbit_dir
+mkdir $boost_dir
+mkdir $autoseed_dir
 
-cd $autoseed_dir && mkdir cache &>>$install_log && chmod 777 cache &>>$install_log
-cd $autoseed_dir && mkdir tmp &>>$install_log && chmod 777 tmp &>>$install_log
-cd $qbit_dir && mkdir torrent &>>$install_log && mkdir download &>>$install_log
+cd $autoseed_dir && mkdir cache && chmod 777 cache
+cd $autoseed_dir && mkdir tmp && chmod 777 tmp
+cd $qbit_dir && mkdir torrent && mkdir download
 
 #################################整体环境部署##############################
 
 cd "/home/$name"
 
 echo "正在更新……"
-apt update &>>$install_log
+apt update
 
 echo "正在配置整体编译环境……"
-apt -y install build-essential pkg-config automake libtool git libgeoip-dev python3 python3-dev &>>$install_log
-apt -y install libboost-dev libboost-system-dev libboost-chrono-dev libboost-random-dev libssl-dev &>>$install_log
-apt -y install qtbase5-dev qttools5-dev-tools libqt5svg5-dev zlib1g-dev &>>$install_log
+apt -y install build-essential pkg-config automake libtool git libgeoip-dev python3 python3-dev
+apt -y install libboost-dev libboost-system-dev libboost-chrono-dev libboost-random-dev libssl-dev
+apt -y install qtbase5-dev qttools5-dev-tools libqt5svg5-dev zlib1g-dev
 
 ####################################编译boost##############################
 
 cd $boost_dir
 echo "开始编译boost，安装必要的包……"
 apt-get -y install mpi-default-dev　&>>$install_log
-apt-get -y install libicu-dev &>>$install_log
-apt-get -y install libbz2-dev &>>$install_log
+apt-get -y install libicu-dev
+apt-get -y install libbz2-dev
 
 echo "开始获取文件并编译……"
-bar & 
-pid=$!
-wget https://dl.bintray.com/boostorg/release/1.75.0/source/boost_1_75_0.tar.bz2 &>>$install_log
+
+wget https://dl.bintray.com/boostorg/release/1.75.0/source/boost_1_75_0.tar.bz2
 tar -jxvf boost_1_75_0.tar.bz2 > /dev/null
 cd boost_1_75_0
-sh ./bootstrap.sh &>>$install_log
-./b2 &>>$install_log
-./b2/install &>>$install_log
-kill $pid &>/dev/null
+sh ./bootstrap.sh
+./b2
+./b2/install
+
 
 echo "编译boost成功……"
 
@@ -102,21 +101,20 @@ echo "编译boost成功……"
 
 cd $lib_dir
 echo "开始编译libtorrent，安装必要的包……"
-apt -y install libssl-dev &>>$install_log
-apt -y install openssl &>>$install_log
+apt -y install libssl-dev
+apt -y install openssl
 
 echo "开始获取文件并编译……"
-bar & 
-pid=$!
-wget https://github.com/arvidn/libtorrent/releases/download/v1.2.11/libtorrent-rasterbar-1.2.11.tar.gz &>>$install_log
-tar xf libtorrent-rasterbar-1.2.11.tar.gz &>>$install_log
-cd libtorrent-rasterbar-1.2.11
-./configure --disable-debug --enable-encryption --with-libgeoip=system CXXFLAGS=-std=c++14 &>>$install_log
 
-make -j$(nproc) &>>$install_log
-make install &>>$install_log
-ldconfig &>>$install_log
-kill $pid &>/dev/null
+wget https://github.com/arvidn/libtorrent/releases/download/v1.2.11/libtorrent-rasterbar-1.2.11.tar.gz
+tar xf libtorrent-rasterbar-1.2.11.tar.gz
+cd libtorrent-rasterbar-1.2.11
+./configure --disable-debug --enable-encryption --with-libgeoip=system CXXFLAGS=-std=c++14
+
+make -j$(nproc)
+make install
+ldconfig
+
 
 echo "编译libtorrent成功……"
 
@@ -124,8 +122,8 @@ echo "编译libtorrent成功……"
 
 cd $qbit_dir
 echo "开始编译qbittorrent，安装必要的包……"
-apt-get -y install qt5-default &>>$install_log
-apt-get -y install zlib1g-dev &>>$install_log
+apt-get -y install qt5-default
+apt-get -y install zlib1g-dev
 
 # 将命令改名，可能是新版本的调用脚本命名不一样了
 file1="/usr/bin/lrelease"
@@ -139,18 +137,15 @@ fi
 
 echo "开始获取文件并编译……"
 
-bar &
-pid=$!
 
-wget https://github.com/qbittorrent/qBittorrent/archive/release-4.3.3.tar.gz &>>$install_log
-tar xf release-4.3.3.tar.gz &>>$install_log
+wget https://github.com/qbittorrent/qBittorrent/archive/release-4.3.3.tar.gz
+tar xf release-4.3.3.tar.gz
 rm release-4.3.3.tar.gz && cd qBittorrent-release-4.3.3
-./configure --disable-gui --disable-debug &>>$install_log
+./configure --disable-gui --disable-debug
 
-make -j$(nproc) &>>$install_log
-make install &>>$install_log
+make -j$(nproc)
+make install
 
-kill $pid &>/dev/null
 
 echo "qbittorrent编译成功！！！"
 
@@ -307,22 +302,22 @@ if [[ $install_other == "n" ]] || [[ $install_other == "N" ]]; then
     exit 0
 fi
 echo "正在安装ffmpeg|mediainfo|lrzsz|pip3……"
-apt -y install mediainfo &>>$install_log
-apt -y install ffmpeg &>>$install_log
-apt -y install lrzsz &>>$install_log
-apt -y install python3-pip &>>$install_log
+apt -y install mediainfo
+apt -y install ffmpeg
+apt -y install lrzsz
+apt -y install python3-pip
 
 echo "正在安装需要的包，失败的话尝试使用手动安装……"
 echo "pip3 install setuptools bencode.py cn2an requests qbittorrent-api bs4 lxml pymediainfo  pyimgbox"
-pip3 install setuptools &>>$install_log && echo "成功安装setuptools……"
-pip3 install bencode.py &>>$install_log && echo "成功安装bencode.py……"
-pip3 install cn2an &>>$install_log && echo "成功安装cn2an……"
-pip3 install requests &>>$install_log && echo "成功安装requests……"
-pip3 install qbittorrent-api &>>$install_log && echo "成功安装qbittorrent-api……"
-pip3 install bs4 &>>$install_log && echo "成功安装bs4s……"
-pip3 install lxml &>>$install_log && echo "成功安装lxml……"
-pip3 install pymediainfo &>>$install_log && echo "成功安装pymediainfo……"
-pip3 install pyimgbox &>>$install_log && echo "成功安装pyimgbox……"
+pip3 install setuptools && echo "成功安装setuptools……"
+pip3 install bencode.py && echo "成功安装bencode.py……"
+pip3 install cn2an && echo "成功安装cn2an……"
+pip3 install requests && echo "成功安装requests……"
+pip3 install qbittorrent-api && echo "成功安装qbittorrent-api……"
+pip3 install bs4 && echo "成功安装bs4s……"
+pip3 install lxml && echo "成功安装lxml……"
+pip3 install pymediainfo && echo "成功安装pymediainfo……"
+pip3 install pyimgbox && echo "成功安装pyimgbox……"
 
 # 创建up命令用于剧鸡的使用，主文件问main.py
 up_path="/usr/bin/up"

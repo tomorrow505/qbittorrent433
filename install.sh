@@ -319,7 +319,7 @@ pip3 install bencode.py 1>/dev/null 2>>$install_log && echo "成功安装bencode
 pip3 install cn2an 1>/dev/null 2>>$install_log && echo "成功安装cn2an……"
 pip3 install requests 1>/dev/null 2>>$install_log && echo "成功安装requests……"
 pip3 install qbittorrent-api 1>/dev/null 2>>$install_log && echo "成功安装qbittorrent-api……"
-pip3 install bs4 1>/dev/null 2>>$install_log && echo "成功安装bs4s……"
+pip3 install bs4 1>/dev/null 2>>$install_log && echo "成功安装bs4……"
 pip3 install lxml 1>/dev/null 2>>$install_log && echo "成功安装lxml……"
 pip3 install pymediainfo 1>/dev/null 2>>$install_log && echo "成功安装pymediainfo……"
 pip3 install pyimgbox 1>/dev/null 2>>$install_log && echo "成功安装pyimgbox……"

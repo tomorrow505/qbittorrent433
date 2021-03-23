@@ -37,8 +37,11 @@ Command:
 chmod +x up_bluray_picture.sh && mv up_bluray_picture.sh /usr/bin
 
 命令：up_bluray_picture.sh 蓝光文件路径(与bluray用法文件名一致)
+
 如：`up_bluray.sh "/home/shmt86/qbittorrent/download/Bang Bang.2014.BD50.Untouched BluRay.REM GERMAN.DRs/"`
+
 提示：命令可以按tab键补全，也可以改个名字。
+
 ```bash
 Submission(success=True, filepath='/log/bluray/Bang.Bang.2014.BD50.Untouched.BluRay.REM.GERMAN.DRs/screenshot09.png', filename='screenshot09.png', image_url='https://images2.imgbox.com/97/6c/0JSzOf8e_o.png', thumbnail_url='https://thumbs2.imgbox.com/97/6c/0JSzOf8e_t.png', web_url='https://imgbox.com/0JSzOf8e', gallery_url='https://imgbox.com/g/FwffNM12Pc', edit_url='https://imgbox.com/upload/edit/627561823/Sl60SFbvv3ZZPY9Z')
 Submission(success=True, filepath='/log/bluray/Bang.Bang.2014.BD50.Untouched.BluRay.REM.GERMAN.DRs/screenshot04.png', filename='screenshot04.png', image_url='https://images2.imgbox.com/1b/ef/wvAaIZyZ_o.png', thumbnail_url='https://thumbs2.imgbox.com/1b/ef/wvAaIZyZ_t.png', web_url='https://imgbox.com/wvAaIZyZ', gallery_url='https://imgbox.com/g/FwffNM12Pc', edit_url='https://imgbox.com/upload/edit/627561823/Sl60SFbvv3ZZPY9Z')

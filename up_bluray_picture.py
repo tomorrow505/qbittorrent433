@@ -35,7 +35,7 @@ def parse_argv():
 
 def get_img_paths_from_path(path):
     img_paths = []
-    files = os.listdir(path)
+    files = os.listdir(path).sort()
     for file in files:
         file_path = os.path.join(path, file)
         if file_path.endswith("png"):

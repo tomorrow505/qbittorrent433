@@ -38,7 +38,7 @@ chmod +x up_bluray_picture.sh && mv up_bluray_picture.sh /usr/bin
 
 命令：up_bluray_picture.sh 蓝光文件路径(与bluray用法文件名一致)
 
-如：`up_bluray.sh "/home/shmt86/qbittorrent/download/Bang Bang.2014.BD50.Untouched BluRay.REM GERMAN.DRs/"`
+如：`up_bluray_picture.sh "/home/shmt86/qbittorrent/download/Bang Bang.2014.BD50.Untouched BluRay.REM GERMAN.DRs/"`
 
 提示：命令可以按tab键补全，也可以改个名字。
 

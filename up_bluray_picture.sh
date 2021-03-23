@@ -1,6 +1,8 @@
 #!/bin/bash
 
-# 读取输入的路径写入固定交互
+echo "读取输入路径参数：$1"
+
+# 将路径写入固定交互
 cat>input.data<<EOF
 $1
 03
@@ -12,7 +14,7 @@ EOF
 
 # 使用固定交互命令执行bluray并输出到output.data
 echo "正在截图……"
-bluray < input.data > output.data
+bluray < input.data | tee output.data
 
 echo "读取截图路径……"
 # 读取图片存储路径

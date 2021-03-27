@@ -31,6 +31,7 @@ Command:
 利用星大脚本的bluray命令截取蓝光图片上传到imgbox。
 先将up_bluray_picture.sh和up_bluray_picture.sh提交到linux系统，改变up_bluray_picture.sh脚本里的python脚本的位置为实际存放位置。
 `wget https://raw.githubusercontent.com/tomorrow505/qbittorrent433/main/up_bluray_picture.sh -O up_bluray_picture.sh`
+
 `wget https://raw.githubusercontent.com/tomorrow505/qbittorrent433/main/up_bluray_picture.py -O up_bluray_picture.py`
 
 然后给up_bluray_picture.sh执行权限，丢到/usr/bin目录下去。

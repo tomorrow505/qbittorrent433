@@ -94,6 +94,8 @@ class Capture:
         pictures = self.get_torrent_picture()
         mediainfo += '\n' + pictures
         print(mediainfo)
+        with open(self.torrent_name+'.txt', 'w') as f:
+            f.write(mediainfo)
 
     # -----------------------------------------mediainfo相关函数-------------------------------------------------
     @staticmethod

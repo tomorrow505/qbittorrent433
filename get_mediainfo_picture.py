@@ -17,7 +17,8 @@ class CapturePictureStopException(Exception):
 
 
 def send_imgbox(img_loc: list=None, gallery_name: str=None):
-    loop = asyncio.get_event_loop()
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
     task = loop.create_task(up_imgbox(img_loc, gallery_name))
     loop.run_until_complete(task)
     return task.result()
@@ -29,9 +30,11 @@ async def up_imgbox(file_paths, gallery_name):
         gallery.thumb_width = 350
         async for submission in gallery.add(file_paths):
             if not submission['success']:
+                logger.info('上传截图失败……')
                 logger.info(f"{submission['filename']}: {submission['error']}")
             else:
                 logger.info(submission)
+                logger.info('上传截图成功……')
                 img_bbcode.append('[url=%s][img]%s[/img][/url]' % (submission['web_url'], submission['thumbnail_url']))
     return img_bbcode
 
@@ -130,6 +133,7 @@ class Capture:
         logger.info('开始获取截图……')
         self.video_duration = self.get_video_info()
         picture_list = self.make_thumbnails(self.video_duration)
+        logger.info('开始上传截图……')
         urls = send_imgbox(picture_list, self.torrent_name)
         urls = [url+'\n' if urls.index(url) % 2 == 1 else url for url in urls]
         return ''.join(urls)

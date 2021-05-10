@@ -90,12 +90,12 @@ class Capture:
 
     def get_info(self):
         mediainfo = self.get_torrent_mediainfo()
-                            
+        mediainfo = '[quote=iNFO][font=Courier New]%s[/font][/quote]' % mediainfo
         pictures = self.get_torrent_picture()
-        mediainfo += '\n' + pictures
+        mediainfo += '\n\n' + pictures
         print(mediainfo)
         with open(self.torrent_name+'.txt', 'w') as f:
-            f.write(pictures)
+            f.write(mediainfo)
 
     # -----------------------------------------mediainfo相关函数-------------------------------------------------
     @staticmethod

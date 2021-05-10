@@ -134,6 +134,7 @@ class Capture:
         self.video_duration = self.get_video_info()
         picture_list = self.make_thumbnails(self.video_duration)
         logger.info('开始上传截图……')
+        print(picture_list)
         urls = send_imgbox(picture_list, self.torrent_name)
         urls = [url+'\n' if urls.index(url) % 2 == 1 else url for url in urls]
         return ''.join(urls)

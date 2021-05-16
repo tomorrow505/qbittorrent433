@@ -62,3 +62,46 @@ Submission(success=True, filepath='/log/bluray/Bang.Bang.2014.BD50.Untouched.Blu
 
 ```
 
+### 配合剧集的行动
++ 在盒子上任意目录下创建code目录：`mkdir code && cd code`
+
++ 获取截图代码：`wget https://raw.githubusercontent.com/tomorrow505/qbittorrent433/main/get_mediainfo_picture.py -O get_mediainfo_picture.py`
+
++ 创建一个tmp目录并设置为完全开放：`mkdir tmp && chmod 777 tmp`
+
++ 检查python版本，`python3 --version`，需要3.6+，没有的话就换个系统吧
+
++ 需要安装mediainfo和ffmpeg：`apt install mediainfo`，`apt install ffmpeg`.
+
++ 需要安装一系列的python包：
+
+```bash
+apt -y install mediainfo
+apt -y install ffmpeg
+apt -y install lrzsz
+apt -y install python3-pip
+pip3 install qbittorrent-api pymediainfo pyimgbox
+```
+
+  测试：获取当前qbittorrent客户端正在做种的一个种子的哈希值，输入：
+
+`python3 get_mediainfo_picture.py -i {torrent-hash}`
+
+其中torrent-hash是获取到的哈希值。
+
+接着，在种鸡配置目录conf下新建一个seedbox.json文件，填入以下内容：
+
++ `{"ip": "xx.xx.xx.xx", "port": "22", "name": "root", "pass_word": "xxxxxxx", "code_path": "/home/plmsbje/code"}`
+
+说明：以上是root登录信息不是qbittorrent登录信息，code_path就是刚才新建code路径的绝对目录。
+
+如果没有seedbox.json，则默认是本地种鸡，会寻找本地文件，截图失败；
+
+存在seedbox.json则会使用上面的信息与盒子进行交互，等待截图信息后完成发布。
+
+
+
+有bug请反馈，目前通过测试的部分站点有：柠檬、猫站、套套、瓷器、馒头。
+
+
+

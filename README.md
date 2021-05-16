@@ -62,7 +62,8 @@ Submission(success=True, filepath='/log/bluray/Bang.Bang.2014.BD50.Untouched.Blu
 
 ```
 
-### 配合剧集的行动
+### 配合剧鸡的行动
+----
 + 在盒子上任意目录下创建code目录：`mkdir code && cd code`
 
 + 获取截图代码：`wget https://raw.githubusercontent.com/tomorrow505/qbittorrent433/main/get_mediainfo_picture.py -O get_mediainfo_picture.py`

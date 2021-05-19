@@ -27,6 +27,11 @@ Get_mediainfo_picture uasge:
 Command:
 `chuantu hash_of_torrent`
 
+### 类似的加入ptpimg传图脚本: 需要在脚本所在目录新建一个config.json, 写入`{"apikey": "ptpimg的apikey"}`
+```wget https://raw.githubusercontent.com/tomorrow505/qbittorrent433/main/ptpimg_upload.sh -O ptpimg_upload.sh && /bin/bash ptpimg_upload.sh```
+Command:
+`ptpimg hash_of_torrent`
+
 ### 2021.3.23 NEW
 利用星大脚本的bluray命令截取蓝光图片上传到imgbox。
 先将up_bluray_picture.sh和up_bluray_picture.sh提交到linux系统，改变up_bluray_picture.sh脚本里的python脚本的位置为实际存放位置。
@@ -61,6 +66,18 @@ Submission(success=True, filepath='/log/bluray/Bang.Bang.2014.BD50.Untouched.Blu
 [url=https://imgbox.com/Wkj5zvLe][img]https://thumbs2.imgbox.com/b6/d2/Wkj5zvLe_t.png[/img][/url][url=https://imgbox.com/6PxVVMzb][img]https://thumbs2.imgbox.com/91/95/6PxVVMzb_t.png[/img][/url]
 
 ```
+
+### 新加：上传蓝光截图到ptpimg——需要在脚本所在目录新建一个config.json, 写入`{"apikey": "ptpimg的apikey"}`
+先将ptpimg_bluray.py和ptpimg_bluray.sh提交到linux系统，改变ptpimg_bluray.sh脚本里的python脚本的位置为实际存放位置。
+`wget https://raw.githubusercontent.com/tomorrow505/qbittorrent433/main/ptpimg_bluray.sh -O ptpimg_bluray.sh`
+`wget https://raw.githubusercontent.com/tomorrow505/qbittorrent433/main/ptpimg_bluray.py -O ptpimg_bluray.py`
+
+然后给ptpimg_bluray.sh执行权限，丢到/usr/bin目录下去。
+chmod +x ptpimg_bluray.sh && mv ptpimg_bluray.sh /usr/bin
+
+命令：ptpimg_bluray.sh 蓝光文件路径(与bluray用法文件名一致)
+
+
 
 ### 配合剧鸡的行动
 ----

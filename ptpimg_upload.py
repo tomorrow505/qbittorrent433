@@ -134,7 +134,7 @@ def load_apikey(file_path):
         return json.loads(f.read()).get('apikey')
 
 
-def sent_ptpimg(images):
+def send_ptpimg(images):
     api_key = load_apikey('./config.json')
     try:
         image_urls = upload(api_key, images)

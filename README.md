@@ -124,7 +124,7 @@ pip3 install qbittorrent-api pymediainfo pyimgbox
 
 
 
-有bug请反馈，目前通过测试的部分站点有：柠檬、猫站、套套、瓷器、馒头。
+有bug请反馈，目前通过测试的部分站点有：柠檬、猫站、套套、瓷器、馒头、天空。
 
 
 

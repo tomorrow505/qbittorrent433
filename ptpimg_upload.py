@@ -249,7 +249,7 @@ class Capture:
         picture_list = self.make_thumbnails(self.video_duration)
         logger.info('开始上传截图……')
         # print(picture_list)
-        urls = send_ptpimg(picture_list, self.torrent_name)
+        urls = send_ptpimg(picture_list)
         # urls = [url+'\n' if urls.index(url) % 2 == 1 else url for url in urls]
         return '\n'.join(urls)
 

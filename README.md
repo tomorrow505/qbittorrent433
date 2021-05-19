@@ -29,6 +29,7 @@ Command:
 
 ### 类似的加入ptpimg传图脚本: 需要在脚本所在目录新建一个config.json, 写入`{"apikey": "ptpimg的apikey"}`
 ```wget https://raw.githubusercontent.com/tomorrow505/qbittorrent433/main/ptpimg_upload.sh -O ptpimg_upload.sh && /bin/bash ptpimg_upload.sh```
+
 Command:
 `ptpimg hash_of_torrent`
 

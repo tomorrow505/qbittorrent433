@@ -69,12 +69,16 @@ Submission(success=True, filepath='/log/bluray/Bang.Bang.2014.BD50.Untouched.Blu
 ```
 
 ### 新加：上传蓝光截图到ptpimg——需要在脚本所在目录新建一个config.json, 写入`{"apikey": "ptpimg的apikey"}`
+
 先将ptpimg_bluray.py和ptpimg_bluray.sh提交到linux系统，改变ptpimg_bluray.sh脚本里的python脚本的位置为实际存放位置。
+
 `wget https://raw.githubusercontent.com/tomorrow505/qbittorrent433/main/ptpimg_bluray.sh -O ptpimg_bluray.sh`
+
 `wget https://raw.githubusercontent.com/tomorrow505/qbittorrent433/main/ptpimg_bluray.py -O ptpimg_bluray.py`
 
 然后给ptpimg_bluray.sh执行权限，丢到/usr/bin目录下去。
-chmod +x ptpimg_bluray.sh && mv ptpimg_bluray.sh /usr/bin
+
+`chmod +x ptpimg_bluray.sh && mv ptpimg_bluray.sh /usr/bin`
 
 命令：ptpimg_bluray.sh 蓝光文件路径(与bluray用法文件名一致)
 

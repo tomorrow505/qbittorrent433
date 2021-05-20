@@ -22,4 +22,4 @@ path=$(cat output.data | sed -n '/Files are stored/p' | sed -r "s/\x1B\[([0-9]{1
 
 echo "开始上传截图……"
 # 调用python脚本搜索目录下的文件进行上传
-python3 /home/ptpimg_bluray.py.py -p $path
+python3 /home/ptpimg_bluray.py -p $path

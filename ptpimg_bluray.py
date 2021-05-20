@@ -160,5 +160,4 @@ def get_img_paths_from_path(path):
 if __name__=="__main__":
     files_path = parse_argv()
     img_paths = get_img_paths_from_path(files_path)
-    urls = upload2ptpimg(img_paths)
-    print('\n'.join(urls))
+    upload2ptpimg(img_paths)

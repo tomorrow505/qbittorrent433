@@ -1,4 +1,4 @@
-# qbittorrent433
+# qbittorrent433编译
 Compile qbittorrent4.3.3 on ubuntu or debian.
 
 
@@ -21,6 +21,7 @@ Command:
 Plus: Mediainfo/FFmpeg/rzsz/python packages/...
 
 
+### 截图上传至imgbox
 Get_mediainfo_picture uasge:
 ```wget https://raw.githubusercontent.com/tomorrow505/qbittorrent433/main/get_mediaifno_picture.sh -O get_mediaifno_picture.sh && /bin/bash get_mediaifno_picture.sh```
 
@@ -68,7 +69,7 @@ Submission(success=True, filepath='/log/bluray/Bang.Bang.2014.BD50.Untouched.Blu
 
 ```
 
-### 新加：上传蓝光截图到ptpimg——需要在脚本所在目录新建一个config.json, 写入`{"apikey": "ptpimg的apikey"}`
+### 20210518新加：上传蓝光截图到ptpimg——需要在脚本所在目录新建一个config.json, 写入`{"apikey": "ptpimg的apikey"}`
 
 先将ptpimg_bluray.py和ptpimg_bluray.sh提交到linux系统，改变ptpimg_bluray.sh脚本里的python脚本的位置为实际存放位置。
 

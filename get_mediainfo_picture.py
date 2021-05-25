@@ -137,7 +137,7 @@ class Capture:
         print(picture_list)
         urls = send_imgbox(picture_list, self.torrent_name)
         urls = [url+'\n' if urls.index(url) % 2 == 1 else url for url in urls]
-        return ''.join(urls)
+        return ' '.join(urls)
 
     def get_video_info(self):
         media_info = MediaInfo.parse(self.abs_file_path)

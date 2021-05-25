@@ -53,4 +53,4 @@ if __name__=="__main__":
         gallery_name = files_path.split('/')[-1].split('\\')[-1]
     urls = send_imgbox(img_loc=img_paths, gallery_name=gallery_name)
     urls = [url+'\n' if urls.index(url) % 2 == 1 else url for url in urls]
-    print(''.join(urls))
+    print(' '.join(urls))

@@ -24,7 +24,7 @@ Plus: Mediainfo/FFmpeg/rzsz/python packages/...
 ### 截图上传至imgbox
 Get_mediainfo_picture uasge:
 
-```wget https://raw.githubusercontent.com/tomorrow505/qbittorrent433/main/get_mediaifno_picture.sh -O get_mediaifno_picture.sh && /bin/bash get_mediaifno_picture.sh```
+```wget https://raw.githubusercontent.com/tomorrow505/qbittorrent433/main/get_mediainfo_picture.sh -O get_mediainfo_picture.sh && /bin/bash get_mediainfo_picture.sh```
 
 Command:
 `chuantu hash_of_torrent`

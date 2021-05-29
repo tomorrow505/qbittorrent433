@@ -29,5 +29,5 @@ cd /usr/bin && chmod +x chuantu
 chuantu_path="/usr/bin/chuantu"
 cat<<EOF>$chuantu_path
 #!/bin/bash
-python3 "${script_path}get_mediaifno_picture.py" -i \$1
+python3 "${script_path}get_mediainfo_picture.py" -i \$1
 EOF

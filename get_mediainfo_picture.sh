@@ -24,10 +24,17 @@ if [ -f /usr/bin/chuantu ]; then
   exit 1
 fi
 
+number=$#
+if [ $number -gt 1 ]; then
+  label=\$2
+else
+  label=''
+fi
+
 touch /usr/bin/chuantu
 cd /usr/bin && chmod +x chuantu
 chuantu_path="/usr/bin/chuantu"
 cat<<EOF>$chuantu_path
 #!/bin/bash
-python3 "${script_path}get_mediainfo_picture.py" -i \$1
+python3 "${script_path}get_mediainfo_picture.py" -i \$1 ${label}
 EOF

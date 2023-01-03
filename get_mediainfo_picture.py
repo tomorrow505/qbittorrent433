@@ -165,8 +165,8 @@ class Capture:
         file_name = os.path.basename(self.abs_file_path)
         tmp_path = os.path.join(base_path, 'tmp')
         img_path = os.path.join(tmp_path, "{filename}-out-{d}.png".format(filename=file_name, d=n))
-        command = 'ffmpeg -ss {timestring} -y -i "{file}" "-f" "image2" "-frames:v"  "1" "-c:v" "png" ' \
-                  '"-loglevel" "8" "{img_path}"'.format(timestring=timestring, file=self.abs_file_path,
+        command = 'ffmpeg -ss {timestring} -y -i "{file}" "-f" "image2" "-frames:v" "1" "-c:v" "png" ' \
+                  '"-loglevel" "8" "-pix_fmt" "rgb8" "{img_path}"'.format(timestring=timestring, file=self.abs_file_path,
                                                         img_path=img_path)
         try:
             subprocess.call(command, shell=True)

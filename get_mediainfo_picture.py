@@ -53,6 +53,7 @@ class Capture:
     video_duration: float = None
 
     def __init__(self):
+        self.mediainfo = None
         self.parse_argv()
 
     def run(self):
@@ -92,11 +93,11 @@ class Capture:
         logger.info('种子名称为: %s' % self.torrent_name)
 
     def get_info(self):
-        mediainfo = self.get_torrent_mediainfo()
-        mediainfo = '[quote=iNFO][font=Courier New]%s[/font][/quote]' % mediainfo
+        self.mediainfo = self.get_torrent_mediainfo()
+        self.mediainfo = '[quote=iNFO][font=Courier New]%s[/font][/quote]' % self.mediainfo
         pictures = self.get_torrent_picture()
-        mediainfo += '\n\n' + pictures
-        print(mediainfo)
+        self.mediainfo += '\n\n' + pictures
+        print(self.mediainfo)
         with open(self.torrent_name+'.txt', 'w') as f:
             f.write(pictures)
 
@@ -166,10 +167,33 @@ class Capture:
         tmp_path = os.path.join(base_path, 'tmp')
         img_path = os.path.join(tmp_path, "{filename}-out-{d}.png".format(filename=file_name, d=n))
         command = 'ffmpeg -ss {timestring} -y -i "{file}" "-f" "image2" "-frames:v" "1" "-c:v" "png" ' \
-                  '"-loglevel" "8" "-pix_fmt" "rgb8" "{img_path}"'.format(timestring=timestring, file=self.abs_file_path,
+                  '"-loglevel" "8" "{img_path}" > /dev/null 2>&1'.format(timestring=timestring, file=self.abs_file_path,
                                                         img_path=img_path)
         try:
             subprocess.call(command, shell=True)
+            # os.system(command)
+            if re.search('Bit depth.*?10 bits', self.mediainfo) or re.search('hdr format.*?HDR10', self.mediainfo, re.IGNORECASE):
+                print('转换8-bit')
+                new_path = img_path.replace('.png', '-8bit.png')
+                command = 'ffmpeg -i "{}" -pix_fmt rgb24 "{}" > /dev/null 2>&1'.format(img_path, new_path)
+                code = os.system(command)
+                size = os.path.getsize(new_path)/float(1024*1024)
+                if code == 0 and size > 10:
+                    ratio = 100
+                    for i in range(1, 20):
+                        ratio = 5 * (20 - i)
+                        print(ratio * size)
+                        if size * ratio < 1000:
+                            print('体积过大压缩至%s' % str(ratio))
+                            break
+                    from PIL import Image
+
+                    png_pil = Image.open(new_path)
+                    png_pil.save(img_path,"PNG",quality=ratio, optimize=True)
+                    os.remove(new_path)
+                else:
+                    os.remove(img_path)
+                    os.rename(new_path, img_path)
             return img_path
         except Exception as exc:
             logger.info('截图失败：%s' % exc)

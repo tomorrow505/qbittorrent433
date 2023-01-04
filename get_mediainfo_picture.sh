@@ -16,7 +16,7 @@ if ! [ -x "$(command -v pip3)" ]; then
   apt -y install python3-pip >/dev/null 2>&1
 fi
  
-pip3 install pymediainfo pyimgbox qbittorrent-api
+pip3 install pymediainfo pyimgbox qbittorrent-api pillow
  
 # 创建一个传图命令
 if [ -f /usr/bin/chuantu ]; then

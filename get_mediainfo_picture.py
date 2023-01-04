@@ -173,27 +173,28 @@ class Capture:
             subprocess.call(command, shell=True)
             # os.system(command)
             if re.search('Bit depth.*?10 bits', self.mediainfo) or re.search('hdr format.*?HDR10', self.mediainfo, re.IGNORECASE):
-                print('转换8-bit')
+                print('图片过大需要转换成8-bit')
                 new_path = img_path.replace('.png', '-8bit.png')
                 command = 'ffmpeg -i "{}" -pix_fmt rgb24 "{}" > /dev/null 2>&1'.format(img_path, new_path)
                 code = os.system(command)
-                size = os.path.getsize(new_path)/float(1024*1024)
-                if code == 0 and size > 10:
-                    ratio = 100
-                    for i in range(1, 20):
-                        ratio = 5 * (20 - i)
-                        print(ratio * size)
-                        if size * ratio < 1000:
-                            print('体积过大压缩至%s' % str(ratio))
-                            break
-                    from PIL import Image
+                os.remove(img_path)
+                os.rename(new_path, img_path)
+            size = os.path.getsize(img_path)/float(1024*1024)
+            if size > 10:
+                ratio = 100
+                for i in range(1, 20):
+                    ratio = 5 * (20 - i)
+                    if size * ratio < 1000:
+                        print('体积过大压缩至百分之%s' % str(ratio))
+                        break
+                from PIL import Image
 
-                    png_pil = Image.open(new_path)
-                    png_pil.save(img_path,"PNG",quality=ratio, optimize=True)
-                    os.remove(new_path)
-                else:
-                    os.remove(img_path)
-                    os.rename(new_path, img_path)
+                png_pil = Image.open(img_path)
+                new_path = img_path.replace('.png', '-compressed.png')
+                png_pil.save(new_path,"PNG",quality=ratio, optimize=True)
+                os.remove(img_path)
+                os.rename(new_path, img_path)
+                print('图片压缩成功！！！')
             return img_path
         except Exception as exc:
             logger.info('截图失败：%s' % exc)

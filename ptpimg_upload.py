@@ -279,11 +279,40 @@ class Capture:
         file_name = os.path.basename(self.abs_file_path)
         tmp_path = os.path.join(base_path, 'tmp')
         img_path = os.path.join(tmp_path, "{filename}-out-{d}.png".format(filename=file_name, d=n))
-        command = 'ffmpeg -ss {timestring} -y -i "{file}" "-f" "image2" "-frames:v"  "1" "-c:v" "png" ' \
-                  '"-loglevel" "8" "{img_path}"'.format(timestring=timestring, file=self.abs_file_path,
-                                                        img_path=img_path)
+        command = 'ffmpeg -y -ss {timestring} -i "{file}"  -ss 00:00:01 -frames:v 1 -loglevel 8 "{img_path}" > /dev/null 2>&1'.format(timestring=timestring, file=self.abs_file_path, img_path=img_path)
         try:
             subprocess.call(command, shell=True)
+            # os.system(command)
+            # if re.search('Bit depth.*?10 bits', self.mediainfo) or re.search('hdr format.*?HDR10', self.mediainfo, re.IGNORECASE):
+            #     print('图片过大需要转换成8-bit')
+            #     new_path = img_path.replace('.png', '-8bit.png')
+            #     command = 'ffmpeg -i "{}" -pix_fmt rgb24 "{}" > /dev/null 2>&1'.format(img_path, new_path)
+            #     code = os.system(command)
+            #     os.remove(img_path)
+            #     os.rename(new_path, img_path)
+            size = os.path.getsize(img_path)/float(1024*1024)
+            if size > 10:
+                print('图片过大需要压缩')
+                new_path = img_path.replace('.png', '_1.png')
+                # nconvert -out png -clevel 6 -o "${outputpath}/${file_title_clean}.scr${c}_1.png" "${outputpath}/${file_title_clean}.scr${c}.png" > /dev/null 2>&1
+                command = 'nconvert -out png -clevel 6 -o "{}" "{}" > /dev/null 2>&1'.format(new_path, img_path)
+                code = os.system(command)
+                os.remove(img_path)
+                os.rename(new_path, img_path)
+                # ratio = 100
+                # for i in range(1, 20):
+                #     ratio = 5 * (20 - i)
+                #     if size * ratio < 1000:
+                #         print('体积过大压缩至百分之%s' % str(ratio))
+                #         break
+                # from PIL import Image
+
+                # png_pil = Image.open(img_path)
+                # new_path = img_path.replace('.png', '-compressed.png')
+                # png_pil.save(new_path,"PNG",quality=ratio, optimize=True)
+                # os.remove(img_path)
+                # os.rename(new_path, img_path)
+                print('图片压缩成功！！！')
             return img_path
         except Exception as exc:
             logger.info('截图失败：%s' % exc)
